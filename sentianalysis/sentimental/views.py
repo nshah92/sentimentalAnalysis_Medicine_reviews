@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
+from django.template import RequestContext
+
 
 from database import CSVtoMongoDB
 from .models import brandnameReviews
@@ -16,20 +18,20 @@ def index(request):
 def search(request):
     if 'medicinename' in request.GET:
         message = request.GET['medicinename']
-
-        for e in brandnameReviews.objects().all():
-            if message.__eq__(e["name"]):
-                print e["name"];
-
-        sentences = "great"
-        analyzer = SentimentIntensityAnalyzer()
-        vs = analyzer.polarity_scores(sentences)
     else:
         message = 'You submitted nothing!'
 
-    return HttpResponse("{:-<65} {}".format("hello", str(message)))
+    posts = brandnameReviews.objects(name=message)
+
+    sentences = "great"
+    analyzer = SentimentIntensityAnalyzer()
+    vs = analyzer.polarity_scores(sentences)
+    return render_to_response('sentimental/search.html', {'Posts': posts})
 
 def searchData(medicine):
-
-
-    return medicine
+    result = list()
+    for e in brandnameReviews.objects().all():
+        if medicine.__eq__(e["name"]):
+            result.append(e.name)
+            brandnameReviews(e.name, e.genericname, e.review, e.date)
+    return result
