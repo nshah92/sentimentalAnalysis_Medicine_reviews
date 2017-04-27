@@ -19,6 +19,7 @@ def CSVtoMongoDB():
         reader = csv.reader(f1)
         for row in reader:
             dt = parse(str(row[3]))
+            dt = parse(str(row[3]))
             data1 = genericnameReviews(name=row[0], brandname=row[1], review=row[2], date=dt.strftime('%d-%b-%Y'))
             data1.save()
     finally:

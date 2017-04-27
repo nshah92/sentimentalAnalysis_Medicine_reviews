@@ -24,13 +24,21 @@ SECRET_KEY = '_admgx80+e+qdkxa0@84^k=ch^b_@&z00nd+!o4r3tm%j=(&i1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+PROJECT_ROOT = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), ".."),
+)
 
+ALLOWED_HOSTS = []
+BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_ROOT, 'components')
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 # Application definition
 
 INSTALLED_APPS = [
     'sentimental.apps.SentimentalConfig',
+    'djangobower',
+    'django_nvd3',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +46,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'djangobower.finders.BowerFinder',
+]
+
+BOWER_INSTALLED_APPS = (
+    'jquery',
+    'underscore',
+    'd3#3.5.5',
+    'nvd3#1.7.1',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
