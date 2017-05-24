@@ -59,7 +59,14 @@
 </div>
 
 <div class="container-fluid">
-    <h4>Result for {{ medicine }} </h4>
+
+    <div class="panel-title pull-left">
+        <h4>Result for {{ medicine }} </h4>
+    </div>
+    <div class="panel-title pull-right">
+        <h4>Total Reviews: {{ count }}</h4>
+    </div>
+    <br>
     <hr>
     <div class="row">
         <div class="col-xs-4">
@@ -78,12 +85,24 @@
     <hr>
     <div class = "row">
         <div id class="col-xs-6">
-            <h6>Brand Drugs</h6>
+            <div class="panel-title pull-left">
+                <h6>Brand Drugs </h6>
+            </div>
+            <div class="panel-title pull-right">
+                <h6>Total Reviews: {{ brandCount }}</h6>
+            </div>
+            <br>
             <hr>
             {% include_container chartcontainer3 %}
         </div>
         <div class="col-xs-6">
-            <h6>Generic Drugs</h6>
+            <div class="panel-title pull-left">
+                <h6>Generic Drugs</h6>
+            </div>
+            <div class="panel-title pull-right">
+                <h6>Total Reviews: {{ genericCount }}</h6>
+            </div>
+            <br>
             <hr>
             {% include_container chartcontainer4 %}
         </div>
@@ -92,7 +111,7 @@
     <div class="row">
         <div class="col-xs-12">
             <footer>
-                <a href="{% url 'index' %}#{{ medicine }}">More Details>></a>
+                <a href="{% url 'drugdetail' %}#{{ medicine }}">More Details>></a>
             </footer>
         </div>
     </div>

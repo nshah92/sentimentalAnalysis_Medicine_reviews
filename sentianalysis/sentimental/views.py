@@ -18,12 +18,10 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 import dateutil.parser as parser
 
-
 def index(request):
     context = {'all_albums': ''}
-    CSVtoMongoDB();
+    # CSVtoMongoDB();
     return render(request, 'sentimental/index.html', context)
-
 
 def getAverage(num, date):
     data = sorted(zip(date, num), key=lambda x: x[0])
@@ -43,6 +41,7 @@ def getAverage(num, date):
 
 def graph(request):
 
+    print "Generating charts....."
     extra_serie = {}
 
     if 'medicinename' in request.GET:
@@ -55,15 +54,17 @@ def graph(request):
     }
     pos, neg, neu, Allscore, date, condition = search(message.lower())
 
-    print set(condition)
-
+    count = len(pos)
     if len(set(condition)) == 1:
         med_condition = set(condition).pop()
 
     print med_condition
+
     brandPos, brandNeg, brandNeu, brandDate = conditionScoreforBrands(med_condition)
+    brand_count = len(brandPos)
 
     genericPos, genericNeg, genericNeu, genericDate = conditionScoreforGeneric(med_condition)
+    generic_count = len(genericPos)
 
     #for postive graph
     d1, p1 = getAverage(pos,date)
@@ -141,7 +142,11 @@ def graph(request):
 
     data = {
         'condition': med_condition,
-        'medicine': message,
+        'medicine': message.title(),
+        'count': count,
+        'brandCount': brand_count,
+        'genericCount': generic_count,
+
         'charttype': charttype,
         'chartdata': chartdata,
         'chartcontainer': chartcontainer,
@@ -193,7 +198,6 @@ def graph(request):
         }
     }
     return render_to_response('sentimental/graphs.html',data)
-
 
 def search(message):
     # if 'medicinename' in request.GET:
@@ -265,7 +269,6 @@ def searchData(medicine):
             brandnameReviews(e.name, e.genericname, e.review, e.date)
     return result
 
-
 def conditionScoreforBrands(condition_name):
 
     brandPos = list()
@@ -309,3 +312,6 @@ def conditionScoreforGeneric(condition_name):
             if keys == 'neu':
                 genericNeu.append(values)
     return genericPos, genericNeg, genericNeu, genericDate
+
+def drugdrtail(request):
+    return render_to_response('sentimental/drugdetail.html')
