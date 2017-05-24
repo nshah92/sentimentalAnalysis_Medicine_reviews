@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +10,23 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    {% load nvd3_tags %}
 </head>
+
+{% include_chart_jscss %}
+{% if date_tag %}
+    {% load_chart charttype chartdata chartcontainer  True "%d %b %Y %H" %}
+    {% load_chart charttype1 chartdata1 chartcontainer1  True "%d %b %Y %H" %}
+    {% load_chart charttype2 chartdata2 chartcontainer2  True "%d %b %Y %H" %}
+    {% load_chart charttype3 chartdata3 chartcontainer3  True "%d %b %Y %H" %}
+    {% load_chart charttype4 chartdata4 chartcontainer4  True "%d %b %Y %H" %}
+{% else %}
+    {% load_chart charttype chartdata chartcontainer extra  %}
+    {% load_chart charttype1 chartdata1 chartcontainer1 extra1  %}
+    {% load_chart charttype2 chartdata2 chartcontainer2 extra2  %}
+    {% load_chart charttype3 chartdata3 chartcontainer3 extra3  %}
+    {% load_chart charttype4 chartdata4 chartcontainer4 extra4  %}
+{% endif %}
 
 <body>
 
@@ -20,7 +37,7 @@
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
-                <span class= "icon-bar"></span>
+                <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">Dashboard</a>
@@ -35,8 +52,6 @@
         </div>
     </div>
 </nav>
-
-
 <div class="jumbotron">
     <div class="container-fluid">
         <h1>Sentimental Analysis Result</h1>
@@ -44,25 +59,42 @@
 </div>
 
 <div class="container-fluid">
-    <div class="row" align="center">
-        <form  action="/sentimental/search"  method="get">
-            <div class="col-xs-8">
-                <input type = "text" class = "form-control" name = "medicinename" placeholder = "Enter Medicine Name">
-            </div>
-
-            <div class="col-xs-4">
-                <div>
-                    <button type = "submit" class="btn btn-primary">Search</button>
-                </div>
-            </div>
-        </form>
+    <h4>Result for {{ medicine }} </h4>
+    <hr>
+    <div class="row">
+        <div class="col-xs-4">
+            {% include_container chartcontainer 200 400 %}
+        </div>
+        <div class="col-xs-4">
+            {% include_container chartcontainer1 200 400 %}
+        </div>
+        <div class="col-xs-4">
+            {% include_container chartcontainer2 200 400 %}
+        </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-xs-12">
-        <footer class="navbar-fixed-bottom">
-        </footer>
+    <hr>
+    <h4>Comparison of Brand Drugs and Generic Drugs for {{ condition }}</h4>
+    <hr>
+    <div class = "row">
+        <div id class="col-xs-6">
+            <h6>Brand Drugs</h6>
+            <hr>
+            {% include_container chartcontainer3 %}
+        </div>
+        <div class="col-xs-6">
+            <h6>Generic Drugs</h6>
+            <hr>
+            {% include_container chartcontainer4 %}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-xs-12">
+            <footer>
+                <a href="{% url 'index' %}#{{ medicine }}">More Details>></a>
+            </footer>
+        </div>
     </div>
 </div>
 </body>

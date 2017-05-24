@@ -1,18 +1,24 @@
-{% load nvd3_tags %}
+<div>
 
-<div id="piechart">
+</div>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+  {% block content %}
+      {% load nvd3_tags %}
+ <head>
 {% include_chart_jscss %}
-{% load_chart charttype chartdata chartcontainer extra %}
-
-<h1>Fruits vs Calories</h1>
-{% include_container chartcontainer 400 600 %}
-{% load_chart charttype chartdata "piechart_container" extra %}
-</div>
-
-
-<div id ="piechart1">
-    {% include_chart_jscss %}
-    {% load_chart charttype chartdata chartcontainer extra %}
-    {% include_container chartcontainer 400 600 %}
-    {% load_chart charttype chartdata "data2" extra %}
-</div>
+{% if date_tag %}
+    {% load_chart charttype chartdata chartcontainer  True "%d %b %Y %H" %}
+    {% load_chart charttype1 chartdata1 chartcontainer1  True "%d %b %Y %H" %}
+{% else %}
+    {% load_chart charttype chartdata chartcontainer extra  %}
+    {% load_chart charttype1 chartdata1 chartcontainer1 extra1  %}
+{% endif %}
+ </head>
+ <body>
+  {% include_container chartcontainer 400 600 %}
+{% include_container chartcontainer1 400 600 %}
+ </body>
+{% endblock %}

@@ -18,10 +18,11 @@ class brandnameReviews(Document):
     genericname = StringField(max_length=50)
     review = StringField(max_length=5000)
     date = StringField(max_length=50)
-
+    condition = StringField(max_length=50)
 
 class genericnameReviews(Document):
     name = StringField(max_length=50)
     brandname = StringField(max_length=50)
     review = StringField(max_length=5000)
     date = StringField(max_length=50)
+    condition = StringField(max_length=50)

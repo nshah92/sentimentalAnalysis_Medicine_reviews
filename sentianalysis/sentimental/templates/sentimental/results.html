@@ -23,13 +23,16 @@
 
 <div>
     <h1>Part 2</h1>
-    {% for post in Posts1 %}
-      <h2> {{ post.name }} </h2>
-        <div class="well">
-            <p>{{ post.review }}</p>
-            <p>{{ post.date }}</p>
-        </div>
-    {% endfor %}
+     {% for key,value in score.items %}
+         {{ key }}
+     {% endfor %}
+
+{#      <h2> {{ Posts1 }} </h2>#}
+{#        <div class="well">#}
+{#            <p>{{ post.review }}</p>#}
+{#            <p>{{ post.date }}</p>#}
+{#        </div>#}
+{#    {% endfor %}#}
 </div>
 </body>
 </html>
