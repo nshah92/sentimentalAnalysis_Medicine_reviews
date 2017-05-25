@@ -111,7 +111,10 @@
     <div class="row">
         <div class="col-xs-12">
             <footer>
-                <a href="{% url 'drugdetail' %}#{{ medicine }}">More Details>></a>
+                <form  action="/sentimental/drugdetail"  method="get">
+
+                    <a href="{% url 'drugdetail' %}?condition={{ condition }}">More Details>></a>
+                </form>
             </footer>
         </div>
     </div>
