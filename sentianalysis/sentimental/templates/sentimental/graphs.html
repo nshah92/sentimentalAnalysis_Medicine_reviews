@@ -109,11 +109,17 @@
     </div>
     <hr>
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-6">
             <footer>
                 <form  action="/sentimental/drugdetail"  method="get">
-
-                    <a href="{% url 'drugdetail' %}?condition={{ condition }}">More Details>></a>
+                    <a href="{% url 'drugdetail' %}?condition={{ condition }}&flag=true">More Details of brand drugs>></a>
+                </form>
+            </footer>
+        </div>
+        <div class="col-xs-6">
+            <footer>
+                <form  action="/sentimental/drugdetail"  method="get">
+                    <a href="{% url 'drugdetail' %}?condition={{ condition }}&flag=false">More Details of generic drugs>></a>
                 </form>
             </footer>
         </div>

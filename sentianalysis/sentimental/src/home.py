@@ -44,7 +44,7 @@ def graph(request):
     brandPos, brandNeg, brandNeu, brandDate = conditionScoreforBrands(med_condition, 'false')
     brand_count = len(brandPos)
 
-    genericPos, genericNeg, genericNeu, genericDate = conditionScoreforGeneric(med_condition)
+    genericPos, genericNeg, genericNeu, genericDate = conditionScoreforGeneric(med_condition, 'false')
     generic_count = len(genericPos)
 
     #for postive graph

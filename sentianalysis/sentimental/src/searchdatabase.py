@@ -123,17 +123,19 @@ def conditionScoreforBrands(condition_name, flag):
     else:
         return brandPos, brandNeg, brandNeu, brandDate
 
-def conditionScoreforGeneric(condition_name):
+def conditionScoreforGeneric(condition_name, flag):
 
     genericPos = list()
     genericNeg = list()
     genericNeu = list()
     genericDate = list()
+    genericDrugName = list()
 
     generic_data = genericnameReviews.objects(condition=condition_name)
     analyzer = SentimentIntensityAnalyzer()
 
     for data in generic_data:
+        genericDrugName.append(data.name)
         score = analyzer.polarity_scores(data.review)
         genericDate.append(parser.parse(data.date).year)
         for keys, values in score.items():
@@ -143,4 +145,7 @@ def conditionScoreforGeneric(condition_name):
                 genericNeg.append(values)
             if keys == 'neu':
                 genericNeu.append(values)
-    return genericPos, genericNeg, genericNeu, genericDate
+    if flag == 'true':
+        return genericPos, genericNeg, genericNeu, genericDate, genericDrugName
+    else:
+        return genericPos, genericNeg, genericNeu, genericDate

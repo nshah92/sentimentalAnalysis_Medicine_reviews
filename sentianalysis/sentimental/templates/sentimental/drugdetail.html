@@ -8,7 +8,26 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    {% load nvd3_tags %}
 </head>
+
+{% include_chart_jscss %}
+
+{% load_chart charttype0 chartdata0 chartcontainer0 extra0  %}
+{% load_chart charttype1 chartdata1 chartcontainer1 extra1  %}
+{% load_chart charttype2 chartdata2 chartcontainer2 extra2  %}
+{% load_chart charttype3 chartdata3 chartcontainer3 extra3  %}
+{% load_chart charttype4 chartdata4 chartcontainer4 extra4  %}
+{% load_chart charttype5 chartdata5 chartcontainer5 extra5  %}
+{% load_chart charttype6 chartdata6 chartcontainer6 extra6  %}
+{% load_chart charttype7 chartdata7 chartcontainer7 extra7  %}
+{% load_chart charttype8 chartdata8 chartcontainer8 extra8  %}
+{% load_chart charttype9 chartdata9 chartcontainer9 extra9  %}
+{% load_chart charttype10 chartdata10 chartcontainer10 extra10  %}
+{% load_chart charttype11 chartdata11 chartcontainer11 extra11  %}
+{% load_chart charttype12 chartdata12 chartcontainer12 extra12  %}
+{% load_chart charttype13 chartdata13 chartcontainer13 extra13  %}
+{% load_chart charttype14 chartdata14 chartcontainer14 extra14  %}
 
 <body>
 
@@ -29,13 +48,89 @@
 
 <div class="jumbotron">
     <div class="container-fluid">
-        <h1>Sentimental Analysis Result</h1>
+        <h1>Drugs</h1>
     </div>
 </div>
 
 
 <div class="container-fluid">
 
+    <div class="row">
+        <div class = "col-xs-6">
+            <h4>Result for {{ medicine0 }}</h4>
+            {% include_container chartcontainer0%}
+        </div>
+
+        <div class = "col-xs-6">
+            <h4>Result for {{ medicine1 }}</h4>
+            {% include_container chartcontainer1%}
+        </div>
+    </div>
+
+    <hr>
+    <div class="row">
+        <div class = "col-xs-6">
+            <h4>Result for {{ medicine2 }}</h4>
+            {% include_container chartcontainer2%}
+        </div>
+
+        <div class = "col-xs-6">
+            <h4>Result for {{ medicine3 }}</h4>
+            {% include_container chartcontainer3%}
+        </div>
+    </div>
+
+    <hr>
+    <div class="row">
+        <div class = "col-xs-6">
+            <h4>Result for {{ medicine4 }}</h4>
+            {% include_container chartcontainer4%}
+        </div>
+
+        <div class = "col-xs-6">
+            <h4>Result for {{ medicine5 }}</h4>
+            {% include_container chartcontainer5%}
+        </div>
+    </div>
+
+    <hr>
+    <div class="row">
+        <div class = "col-xs-6">
+            <h4>Result for {{ medicine6 }}</h4>
+            {% include_container chartcontainer6%}
+        </div>
+
+        <div class = "col-xs-6">
+            <h4>Result for {{ medicine7 }}</h4>
+            {% include_container chartcontainer7%}
+        </div>
+    </div>
+
+    <hr>
+    <div class="row">
+        <div class = "col-xs-6">
+            <h4>Result for {{ medicine8 }}</h4>
+            {% include_container chartcontainer8%}
+        </div>
+
+        <div class = "col-xs-6">
+            <h4>Result for {{ medicine9 }}</h4>
+            {% include_container chartcontainer9%}
+        </div>
+    </div>
+
+    <hr>
+    <div class="row">
+        <div class = "col-xs-6">
+            <h4>Result for {{ medicine10 }}</h4>
+            {% include_container chartcontainer10%}
+        </div>
+
+        <div class = "col-xs-6">
+            <h4>Result for {{ medicine11 }}</h4>
+            {% include_container chartcontainer11%}
+        </div>
+    </div>
 </div>
 
 
