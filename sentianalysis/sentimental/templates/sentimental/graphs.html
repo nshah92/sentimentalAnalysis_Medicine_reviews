@@ -63,11 +63,14 @@
     <div class="panel-title pull-left">
         <h4>Result for {{ medicine }} </h4>
     </div>
+
     <div class="panel-title pull-right">
         <h4>Total Reviews: {{ count }}</h4>
     </div>
+
     <br>
     <hr>
+
     <div class="row">
         <div class="col-xs-4">
             {% include_container chartcontainer 200 400 %}
@@ -124,6 +127,29 @@
             </footer>
         </div>
     </div>
+    <br>
+    <hr>
+    <h4>List of Keywords of Analysis</h4>
+    <hr>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Words</th>
+                    <th>Count</th>
+                </tr>
+                </thead>
+                {% for row, row1 in keywords %}
+                    <tr>
+                        <td>{{row}}</td>
+                        <td>{{row1}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 </div>
+
 </body>
 </html>

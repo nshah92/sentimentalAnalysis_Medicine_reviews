@@ -19,8 +19,14 @@ from sentimental.models import brandnameReviews, genericnameReviews
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 
+allwords_pos = list()
 
 def graph(request):
+
+    allwords_pos = list()
+    allwords_neg = list()
+    allwords_neu = list()
+
 
     print "Generating charts....."
     extra_serie = {}
@@ -33,7 +39,9 @@ def graph(request):
     context = {
         'medicine': message
     }
-    pos, neg, neu, Allscore, date, condition = search(message.lower())
+    pos, neg, neu, Allscore, date, condition, allwords_pos, allwords_neg, allwords_neu = search(message.lower())
+
+    data1 = countWords(allwords_pos, allwords_neg, allwords_neu)
 
     count = len(pos)
     if len(set(condition)) == 1:
@@ -127,6 +135,7 @@ def graph(request):
         'count': count,
         'brandCount': brand_count,
         'genericCount': generic_count,
+        'keywords': data1,
 
         'charttype': charttype,
         'chartdata': chartdata,
