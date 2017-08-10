@@ -11,6 +11,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     {% load nvd3_tags %}
+
+    <style>
+.parallax {
+    /* The image used */
+    background-image: url("img_parallax.jpg");
+
+    /* Set a specific height */
+    min-height: 500px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+</style>
 </head>
 
 <body>
@@ -36,7 +52,25 @@
 </div>
 
 <div class="container-fluid">
-    <img src = "//Users//Nil//GradFinalProject//sentianalysis//data.png"/>
+
+    <p>Scroll Up and Down this page to see the parallax scrolling effect.</p>
+
+    <div class="parallax">
+                <h1>Positive tweets</h1>
+    </div>
+    <div style="background-color:red;font-size:36px">
+        Scroll Up and Down this page to see the parallax scrolling effect.
+        This div is just here to enable scrolling.
+        Tip: Try to remove the background-attachment property to remove the scrolling effect.
+    </div>
+    <div class="parallax">
+        <h1>Negetive tweets</h1>
+    </div>
+    <div style="background-color:blue;font-size:36px">
+        Scroll Up and Down this page to see the parallax scrolling effect.
+        This div is just here to enable scrolling.
+        Tip: Try to remove the background-attachment property to remove the scrolling effect.
+    </div>
 </div>
 
 

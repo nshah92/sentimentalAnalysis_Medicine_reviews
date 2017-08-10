@@ -10,6 +10,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            position: relative;
+        }
+        #section1 {padding-top:50px;}
+        #section2 {padding-top:50px;height:700px;}
+        #section3 {padding-top:50px;height:900px;}
+    </style>
+
     {% load nvd3_tags %}
 </head>
 
@@ -28,10 +38,9 @@
     {% load_chart charttype4 chartdata4 chartcontainer4 extra4  %}
 {% endif %}
 
-<body>
+<body data-spy="scroll" data-target=".navbar" data-offset="100">
 
-<nav id="myNavbar" class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
-    <!-- Brand and toggle get grouped for better mobile display -->
+<nav id="myNavbar"  data-spy="affix" class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse">
@@ -45,20 +54,21 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="http://www.tutorialrepublic.com" target="_blank">Home</a></li>
-                <li><a href="http://www.tutorialrepublic.com/about-us.php" target="_blank">About</a></li>
-                <li><a href="http://www.tutorialrepublic.com/contact-us.php" target="_blank">Contact</a></li>
+                <li><a href="#section1">{{ medicine }}</a></li>
+                <li><a href="#section2">Disease Graph</a></li>
+                <li><a href="#section3">Reviews</a></li>
             </ul>
         </div>
     </div>
 </nav>
+
 <div class="jumbotron">
     <div class="container-fluid">
         <h1>Sentimental Analysis Result</h1>
     </div>
 </div>
 
-<div class="container-fluid">
+<div id="section1" class="container-fluid">
 
     <div class="panel-title pull-left">
         <h4>Result for {{ medicine }} </h4>
@@ -82,7 +92,9 @@
             {% include_container chartcontainer2 200 400 %}
         </div>
     </div>
+</div>
 
+<div id="section2" class="container-fluid">
     <hr>
     <h4>Comparison of Brand Drugs and Generic Drugs for {{ condition }}</h4>
     <hr>
@@ -128,25 +140,31 @@
         </div>
     </div>
     <br>
+</div>
+
+<div id="section3" class="container-fluid">
     <hr>
-    <h4>List of Keywords of Analysis</h4>
+    <h4>Reviews for {{ medicine }}</h4>
     <hr>
     <div class="row">
-        <div class="col-xs-12">
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th>Words</th>
-                    <th>Count</th>
-                </tr>
-                </thead>
-                {% for row, row1 in keywords %}
-                    <tr>
-                        <td>{{row}}</td>
-                        <td>{{row1}}</td>
-                    </tr>
-                {% endfor %}
-            </table>
+        <div class="col-xs-6">
+            <p>Postive Reviews:</p>
+            {% for row,row1 in pos_keywords %}
+                <blockquote>
+                    <p>{{ row }}</p>
+                    <footer>{{ row1 }}</footer>
+                </blockquote>
+            {% endfor %}
+        </div>
+
+        <div class="col-xs-6">
+            <p>Negetive Reviews:</p>
+            {% for row, row1 in neg_keywords %}
+                <blockquote>
+                    <p>{{ row }}</p>
+                    <footer>{{ row1  }}</footer>
+                </blockquote>
+            {% endfor %}
         </div>
     </div>
 </div>

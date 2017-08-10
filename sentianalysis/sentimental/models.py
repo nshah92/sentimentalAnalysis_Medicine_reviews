@@ -1,17 +1,12 @@
 from __future__ import unicode_literals
 
-from django.db import models
 
 # Create your models here.
 from mongoengine import *
 
 connect('medicinereview')
 
-
-class Employee(Document):
-    name = StringField(max_length=50)
-    age = IntField(required=False)
-
+from django.db import models
 
 class brandnameReviews(Document):
     name = StringField(max_length=50)
@@ -26,3 +21,6 @@ class genericnameReviews(Document):
     review = StringField(max_length=5000)
     date = StringField(max_length=50)
     condition = StringField(max_length=50)
+
+class Employee(Document):
+    name = StringField(max_length=50)

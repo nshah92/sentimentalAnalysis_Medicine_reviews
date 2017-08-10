@@ -8,13 +8,27 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    {% load nvd3_tags %}
 </head>
 
 {% include_chart_jscss %}
 
+{% load nvd3_tags %}
+
 {% load_chart charttype0 chartdata0 chartcontainer0 extra0  %}
 {% load_chart charttype1 chartdata1 chartcontainer1 extra1  %}
+
+<div class="row">
+        <div class = "col-xs-6">
+            <h4>Result for {{ medicine0 }}</h4>
+            {% include_container chartcontainer0%}
+        </div>
+
+        <div class = "col-xs-6">
+            <h4>Result for {{ medicine1 }}</h4>
+            {% include_container chartcontainer1%}
+        </div>
+    </div>
+
 {% load_chart charttype2 chartdata2 chartcontainer2 extra2  %}
 {% load_chart charttype3 chartdata3 chartcontainer3 extra3  %}
 {% load_chart charttype4 chartdata4 chartcontainer4 extra4  %}

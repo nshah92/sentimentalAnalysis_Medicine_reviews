@@ -2,6 +2,13 @@ import collections
 import itertools
 import dateutil.parser as parser
 
+from textblob import TextBlob
+from sentimental.src.keywords import *
+from sentimental.src.reasonfinder import *
+
+from sentimental.src import *
+
+
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 from django.template import RequestContext, Context
@@ -49,6 +56,8 @@ def search(message):
     allwords_neg = list()
     allwords_neu = list()
 
+    pos_reviews = list()
+    neg_reviews = list()
 
     count = data.get("executionStats").get("nReturned")
 
@@ -63,7 +72,7 @@ def search(message):
             score, wordlist = analyzer.polarity_scores(post.review)
             bDate.append(parser.parse(post.date).year)
             bCondition.append(post.condition)
-            print score
+
             for keys, values in score.items():
                 if keys == 'pos':
                     allwords_pos.append(wordlist[0])
@@ -77,7 +86,18 @@ def search(message):
                     allwords_neu.append(wordlist[0])
                     bNeu.append(values)
                     brandnameScore.append(values)
-        return bPos, bNeg, bNeu, brandnameScore, bDate, bCondition, allwords_pos, allwords_neg, allwords_neu
+                if keys == 'compound':
+                    if values >= 0.5:
+                        fs = FrequencySummarizer()
+                        for data in fs.summarize(post.review, 10):
+                            # if 10 < len(data)< 100:
+                            pos_reviews.append((data, post.date))
+                    if values <= -0.5:
+                        fs = FrequencySummarizer()
+                        for data in fs.summarize(post.review, 10):
+                            # if 10 < len(data) < 100:
+                            neg_reviews.append((data, post.date))
+        return bPos, bNeg, bNeu, brandnameScore, bDate, bCondition, allwords_pos, allwords_neg, allwords_neu, pos_reviews, neg_reviews
     else:
         print "Brand Drug"
         posts1 = brandnameReviews.objects(name=message)
@@ -102,7 +122,18 @@ def search(message):
                     allwords_neu.append(wordlist[0])
                     bNeu.append(values)
                     brandnameScore.append(values)
-        return bPos, bNeg, bNeu, brandnameScore, bDate, bCondition, allwords_pos, allwords_neg, allwords_neu
+                if keys == 'compound':
+                    if values >= 0.5:
+                        fs = FrequencySummarizer()
+                        for data in fs.summarize(post.review, 2):
+                            if 10 < len(data)< 100:
+                                pos_reviews.append((data, post.date))
+                    if values <= -0.5:
+                        fs = FrequencySummarizer()
+                        for data in fs.summarize(post.review, 2):
+                            if 10 < len(data) < 100:
+                                neg_reviews.append((data, post.date))
+        return bPos, bNeg, bNeu, brandnameScore, bDate, bCondition, allwords_pos, allwords_neg, allwords_neu, pos_reviews, neg_reviews
         # return render_to_response('sentimental/results.html', {'Posts': posts}, score)
 
 def searchData(medicine):
@@ -151,7 +182,6 @@ def conditionScoreforGeneric(condition_name, flag):
     genericDrugName = list()
     wordlist = list()
 
-
     generic_data = genericnameReviews.objects(condition=condition_name)
     analyzer = SentimentIntensityAnalyzer()
 
@@ -171,17 +201,10 @@ def conditionScoreforGeneric(condition_name, flag):
     else:
         return genericPos, genericNeg, genericNeu, genericDate
 
-def countWords(pos, neg, neu):
-    alldata_pos = list()
-    alldata_neg = list()
-    alldata_neu = list()
-
-    alldata_pos = list(itertools.chain.from_iterable(pos[0]))
-    # alldata_neg = list(itertools.chain.from_iterable(neg[0]))
-    # alldata_neu = list(itertools.chain.from_iterable(neu[0]))
-    # print alldata_pos
-    # counter_pos = collections.Counter(alldata_pos).clear()
-    counter_pos = collections.Counter(alldata_pos)
+def countWords(reviews):
+    alldata = list()
+    print pos
+    counter = collections.Counter(pos)
 
     # counter_pos = [[x, alldata_pos.count(x)] for x in set(alldata_pos)]
     # counter_neg = collections.Counter(alldata_neg)
@@ -192,4 +215,4 @@ def countWords(pos, neg, neu):
     f.write(str(counter_pos.most_common(50)))  # str() converts to string
     f.close()
 
-    return counter_pos.most_common(50)
+    return pos
